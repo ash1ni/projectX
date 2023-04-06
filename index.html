@@ -9,19 +9,67 @@
     <title>Todo list</title>
 </head>
 <body>
-    <div>
-        <div id="myDIV" class="header">
-            <h2>My To Do List</h2>
-            <input type="text" id="myInput" placeholder="Title...">
-            <button type="submit" id="submitBtn" onclick="newElement()">Add</button>
-        </div>
+    <h1 class="title">Things to be done!</h1>
+    <div class="all-tasks">
+        <h2 class="task-list-title">My lists</h2>
+        <ul class="task-list">
+            <li class="active-list">Item1</li>
+            <li>Item2</li>
+            <li>Item3</li>
+            <form action="">
+                <input type="text" class="new list" placeholder="New list name" aria-label="new list name">
+                <button class="btn list" aria-label="create new list">+</button>
+            </form>
 
-        <ul id="todoList">
-            <div class="todoItem">
-                <input type="checkbox" class="complete"> 
-                <label>Hit the gym</label><br>
-            </div>
+        
         </ul>
+    </div>
+    <div class="todo-list">
+        <div class="todo-header">
+            <h2 class="list-title">List1</h2>
+            <p class="task-count">N tasks remaining</p>
+        </div>
+        <div class="todo-body">
+            <div class="tasks">
+                <div class="task">
+                    <input type="checkbox" id="task-1">
+                    <label for="task-1">
+                        <span class="custom-checkbox"></span>
+                        record of task 1
+
+                    </label>
+                </div>
+                <!-- task 1 -->
+                    <div class="task">
+                    <input type="checkbox" id="task-2">
+                    <label for="task-2">
+                        <span class="custom-checkbox"></span>
+                        record of task 2
+
+                    </label>
+                </div>
+                <!-- task 2 -->
+                    <div class="task">
+                    <input type="checkbox" id="task-3">
+                    <label for="task-3">
+                        <span class="custom-checkbox"></span>
+                        record of task 3
+
+                    </label>
+                </div>
+                <!-- task 3 -->
+            </div>
+            <div class="new-task-creator">
+                 <form action="">
+                <input type="text" class="new list" placeholder="New task name" aria-label="create new task">
+                <button class="btn task" aria-label="create new task">+</button>
+            </form>
+            </div>
+            <div class="delete-stuff">
+                <button class="btn delete">Clear completed tasks</button>
+                <button class="btn delete">Delete list</button>
+            </div>
+        </div>
     </div>
 </body>
 </html>
