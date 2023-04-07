@@ -6,18 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="index.js" defer></script>
     <link rel="stylesheet" href="style.css">
+    <script defer src="index.js" ></script>
     <title>Todo list</title>
 </head>
 <body>
     <h1 class="title">Things to be done!</h1>
     <div class="all-tasks">
         <h2 class="task-list-title">My lists</h2>
-        <ul class="task-list">
-            <li class=" list-name active-list">Item1</li>
+        <ul class="task-list" data-lists>
+            <!-- <li class=" list-name active-list">Item1</li>
             <li class="list-name">Item2</li>
-            <li class="list-name">Item3</li>
-            <form action="">
-                <input type="text" class="new list" placeholder="New list name" aria-label="new list name">
+            <li class="list-name">Item3</li> -->
+            <form action="" data-new-list-form>
+                <input type="text" class="new list" data-new-list-input placeholder="New list name" aria-label="new list name">
                 <button class="btn create" aria-label="create new list">+</button>
             </form>
 
