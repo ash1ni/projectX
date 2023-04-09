@@ -2,6 +2,7 @@ var TASKS_SECTION = document.querySelector('.tasks');
 var TASKS_COUNT = 0;
 var ADD_TASK_BUTTON = document.getElementById('add-task-btn')
 var INPUT_FIELD = document.querySelector('#new-task-form input');
+var TASK_COUNT_ELEMENT = document.querySelector('.task-count');
 
 function addActionNewTaskButton() {
   ADD_TASK_BUTTON.addEventListener("click", function (ev) {
@@ -62,11 +63,18 @@ function createDeleteTaskButton() {
 
 function deleteTaskListener(ev) {
   ev.preventDefault();
-  ev.stopImmediatePropagation();
+  // ev.stopImmediatePropagation();
   
-  taskToBeDeleted = ev.target.parentElement
+  taskToBeDeleted = ev.target.parentElement;
   TASKS_SECTION.removeChild(taskToBeDeleted);
   TASKS_COUNT--;
+
+  updateTaskCount();
+}
+
+function updateTaskCount() {
+  TASK_COUNT_ELEMENT.textContent = `${TASKS_COUNT} tasks remaining`;
 }
 
 addActionNewTaskButton();
+updateTaskCount();
