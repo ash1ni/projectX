@@ -1,8 +1,8 @@
 var TASKS_SECTION = document.querySelector('.tasks');
 var TASKS_COUNT = 0;
-var count = 0;
 var ADD_TASK_BUTTON = document.getElementById('add-task-btn')
 var INPUT_FIELD = document.querySelector('#new-task-form input');
+var TASK_COUNT_ELEMENT = document.querySelector('.task-count');
 
 function addActionNewTaskButton() {
   ADD_TASK_BUTTON.addEventListener("click", function (ev) {
@@ -10,6 +10,7 @@ function addActionNewTaskButton() {
     ev.stopImmediatePropagation();
 
     appendNewTaskToTasksSection();
+    updateTaskCount();
   });
 }
 
@@ -23,16 +24,16 @@ function createNewTask(taskString) {
   task.classList.add('task');
   let taskID = `task-${TASKS_COUNT++}`;
 
-  // create new checkbox, with ID equals the global task count
   let inputElem = document.createElement('input');
   inputElem.setAttribute('type', 'checkbox');
   inputElem.id = taskID;
 
-  // create new item, with associate checkbox
   let taskLabel = createTaskLabel(taskID, taskString);
+  let deleteTaskButton = createDeleteTaskButton();
 
   task.appendChild(inputElem);
   task.appendChild(taskLabel);
+  task.appendChild(deleteTaskButton);
 
   return task;
 }
@@ -50,4 +51,31 @@ function createTaskLabel(taskID, taskString) {
   return label;
 }
 
+function createDeleteTaskButton() {
+  let deleteBtn = document.createElement('button');
+
+  deleteBtn.classList.add('delete-task');
+  deleteBtn.setAttribute('type', 'button'); // this button does nothing
+  deleteBtn.innerText = '\u274c'; // basically ❌
+  deleteBtn.addEventListener('click', deleteTaskListener);
+
+  return deleteBtn;
+}
+
+function deleteTaskListener(ev) {
+  ev.preventDefault();
+  // ev.stopImmediatePropagation();
+  
+  taskToBeDeleted = ev.target.parentElement;
+  TASKS_SECTION.removeChild(taskToBeDeleted);
+  TASKS_COUNT--;
+
+  updateTaskCount();
+}
+
+function updateTaskCount() {
+  TASK_COUNT_ELEMENT.textContent = `${TASKS_COUNT} tasks remaining`;
+}
+
 addActionNewTaskButton();
+updateTaskCount();
