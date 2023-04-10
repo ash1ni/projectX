@@ -10,6 +10,7 @@ function addActionNewTaskButton() {
     ev.stopImmediatePropagation();
 
     appendNewTaskToTasksSection();
+    updateTaskCount();
   });
 }
 
