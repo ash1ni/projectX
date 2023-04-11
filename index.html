@@ -19,16 +19,7 @@
       <p class="task-count">N tasks remaining</p>
     </div>
     <div class="todo-body">
-      <div class="tasks">
-        <div class="task">
-          <input type="checkbox" id="dummy-task">
-          <label for="dummy-task">
-            <span class="custom-checkbox"></span>
-            dummy task
-            <button id="delete-task">&#10060;</button>
-          </label>
-        </div>
-      </div>
+      <div class="tasks"></div>
       <div class="new-task-creator">
         <form action="" id="new-task-form">
           <input type="text" class="new task" placeholder="New task name" aria-label="create new task">
@@ -36,7 +27,7 @@
         </form>
       </div>
       <div class="delete-stuff">
-        <button class="btn delete">Clear completed tasks</button>
+        <button class="btn delete" id="clear-data">Clear completed tasks</button>
         <button class="btn delete">Delete list</button>
       </div>
     </div>
