@@ -76,20 +76,19 @@ function deleteTaskListener(ev) {
 
 function clearCompletedTasks() {
   CLEAR_LIST_BTN.addEventListener('click', (ev) => {
-    ev.stopPropagation(); // jadoo 1
-    // ev.stopImmediatePropagation() // jadoo 2
+    ev.stopPropagation();
     
     let tasks = document.querySelector(".tasks").childNodes;
-    console.log(tasks);
 
-    for (let i =0; i<tasks.length;i++) {
-      //console.log(task.nodeName);
-      if (document.getElementById(tasks[i].childNodes[0].id).checked) {
+    console.log(`tasks: ${tasks}`);
 
-        console.log(tasks[i]);
-        console.log(tasks[i].childNodes[0])
-        tasks.removeChild(tasks[i]);
-      }
+    for (let i=0; i<tasks.length;i++) {
+      let task = tasks[i].childNodes;
+
+      if (task[0].checked) {
+        TASKS_SECTION.removeChild(tasks[i]);
+      } 
+      console.log(`tasks[i]: ${tasks[i]}`);
     }
   });
 }
