@@ -16,8 +16,10 @@ function addActionNewTaskButton() {
 }
 
 function appendNewTaskToTasksSection() {
-  TASKS_SECTION.appendChild(createNewTask(INPUT_FIELD.value));
-  INPUT_FIELD.value = "";
+  if (INPUT_FIELD.value != '') {
+    TASKS_SECTION.appendChild(createNewTask(INPUT_FIELD.value));
+    INPUT_FIELD.value = "";
+  }
 }
 
 function createNewTask(taskString) {
