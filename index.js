@@ -123,54 +123,54 @@ addActionNewTaskButton();
 updateTaskCount();
 
 
-function func(){
-  const payload =  returnAllTasks()
+function api() {
+  const payload = returnAllTasks()
   console.log(payload)
   console.log(JSON.stringify(payload));
 
-   const options = {
+  const options = {
     method: 'POST',
     mode: 'cors',
-    headers: {'Content-Type': 'application/json'},
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
   };
-  fetch('http://localhost:3000/request',options)
-  
-  .then(response => response.json())
-  .then(data => {
-    console.log(data);
-    // handle the data (e.g. display the tasks in the UI)
-  })
-  .catch(error => console.error(error));
+  fetch('http://localhost:3000/request', options)
+
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      // handle the data (e.g. display the tasks in the UI)
+    })
+    .catch(error => console.error(error));
 
 
 }
- function returnAllTasks(){
+function returnAllTasks() {
   var result = [];
   var allTasks = document.querySelector(".tasks").childNodes;
 
-   // console.log(`tasks: ${tasks}`);
+  // console.log(`tasks: ${tasks}`);
 
-    for (let i=0; i<allTasks.length;i++) {
-      let currentTask = allTasks[i];
-      let taskID = currentTask.children[0].id;
-      let taskContent = currentTask.children[1].textContent;
-      let taskStatus = currentTask.children[0].checked;
-      let obj = {
-        id:taskID,
-        content:taskContent,
-        status:taskStatus
-      }
-      result.push({
-        id: taskID,
-        task: obj
-
-      })
-     // console.log(obj)
-      
-      
+  for (let i = 0; i < allTasks.length; i++) {
+    let currentTask = allTasks[i];
+    let taskID = currentTask.children[0].id;
+    let taskContent = currentTask.children[1].textContent;
+    let taskStatus = currentTask.children[0].checked;
+    let obj = {
+      id: taskID,
+      content: taskContent,
+      status: taskStatus
     }
-    console.log(result);
-    return result;
+    result.push({
+      id: taskID,
+      task: obj
 
- }
+    })
+    // console.log(obj)
+
+
+  }
+  console.log(result);
+  return result;
+
+}
