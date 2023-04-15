@@ -4,6 +4,7 @@ var ADD_TASK_BUTTON = document.getElementById("add-task-btn");
 var INPUT_FIELD = document.querySelector("#new-task-form input");
 var TASK_COUNT_ELEMENT = document.querySelector(".task-count");
 var CLEAR_LIST_BTN = document.getElementById("clear-data");
+var SYNC_STATE_BTN = document.getElementById('sync-data-btn');
 var SERVER_URL = 'http://localhost:9999/request';
 var EMPTY_STRING = '';
 
@@ -130,8 +131,8 @@ function addActionMarkTaskAsCompleted(ev) {
   }
 }
 
-function api() {
-  let payload = returnAllTasksWithState()
+function sendLocalStateToBackend() {
+  let payload = getAllTasksWithState()
   let requestParams = {
     method: 'POST',
     mode: 'cors',
@@ -145,9 +146,9 @@ function api() {
     .catch(error => console.error(error));
 }
 
-function returnAllTasksWithState() {
-  var result = [];
-  var allTasks = document.querySelector(".tasks").childNodes;
+function getAllTasksWithState() {
+  let result = [];
+  let allTasks = document.querySelector(".tasks").childNodes;
 
   for (let i = 0; i < allTasks.length; i++) {
     let currentTask = allTasks[i];
@@ -166,6 +167,16 @@ function returnAllTasksWithState() {
   return result;
 }
 
+function addActionSyncUIStateWithBackend() {
+  SYNC_STATE_BTN.addEventListener('click', ev => {
+    ev.preventDefault();
+    ev.stopImmediatePropagation();
+
+    sendLocalStateToBackend();
+  })
+}
+
 addActionClearCompletedTasks();
 addActionNewTaskButton();
+addActionSyncUIStateWithBackend();
 updateTaskCount(); // set the initial count as 0
