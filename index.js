@@ -4,6 +4,7 @@ var ADD_TASK_BUTTON = document.getElementById("add-task-btn");
 var INPUT_FIELD = document.querySelector("#new-task-form input");
 var TASK_COUNT_ELEMENT = document.querySelector(".task-count");
 var CLEAR_LIST_BTN = document.getElementById("clear-data");
+var EMPTY_STRING = '';
 
 function addActionNewTaskButton() {
   ADD_TASK_BUTTON.addEventListener("click", function (ev) {
@@ -16,13 +17,14 @@ function addActionNewTaskButton() {
 }
 
 function appendNewTaskToTasksSection() {
-  if (INPUT_FIELD.value != '') {
-    TASKS_SECTION.appendChild(createNewTask(INPUT_FIELD.value));
-    INPUT_FIELD.value = "";
+  if (INPUT_FIELD.value !== EMPTY_STRING) {
+    let newTaskElement = createNewTaskElement(INPUT_FIELD.value);
+    TASKS_SECTION.appendChild(newTaskElement);
+    INPUT_FIELD.value = EMPTY_STRING;
   }
 }
 
-function createNewTask(taskString) {
+function createNewTaskElement(taskString) {
   let task = document.createElement("div");
   task.classList.add("task");
   let taskID = `task-${TASKS_COUNT++}`;
@@ -59,7 +61,7 @@ function createDeleteTaskButton() {
   let deleteBtn = document.createElement("button");
 
   deleteBtn.classList.add("delete-task");
-  deleteBtn.setAttribute("type", "button"); // this button does nothing
+  deleteBtn.setAttribute("type", "button");
   deleteBtn.innerText = "\u274c"; // basically ❌
   deleteBtn.addEventListener("click", deleteTaskListener);
 
@@ -68,7 +70,7 @@ function createDeleteTaskButton() {
 
 function deleteTaskListener(ev) {
   ev.preventDefault();
-  // ev.stopImmediatePropagation();
+  ev.stopImmediatePropagation(); // dunno why the event is registering twice
 
   taskToBeDeleted = ev.target.parentElement;
   TASKS_SECTION.removeChild(taskToBeDeleted);
@@ -77,7 +79,7 @@ function deleteTaskListener(ev) {
   updateTaskCount();
 }
 
-function clearCompletedTasks() {
+function addActionClearCompletedTasks() {
   CLEAR_LIST_BTN.addEventListener('click', (ev) => {
     ev.preventDefault();
     ev.stopImmediatePropagation();
@@ -112,16 +114,12 @@ function addActionMarkTaskAsCompleted(ev) {
   if (checkBox.checked) {
     TASKS_COUNT -= 1;
     updateTaskCount();
+
   } else {
     TASKS_COUNT += 1;
     updateTaskCount();
   }
 }
-
-clearCompletedTasks();
-addActionNewTaskButton();
-updateTaskCount();
-
 
 function api() {
   const payload = returnAllTasks()
@@ -145,32 +143,28 @@ function api() {
 
 
 }
-function returnAllTasks() {
+
+function returnAllTasksWithState() {
   var result = [];
   var allTasks = document.querySelector(".tasks").childNodes;
-
-  // console.log(`tasks: ${tasks}`);
 
   for (let i = 0; i < allTasks.length; i++) {
     let currentTask = allTasks[i];
     let taskID = currentTask.children[0].id;
     let taskContent = currentTask.children[1].textContent;
     let taskStatus = currentTask.children[0].checked;
-    let obj = {
-      id: taskID,
-      content: taskContent,
-      status: taskStatus
-    }
+
+    // this will be an array of objects
     result.push({
       id: taskID,
-      task: obj
-
-    })
-    // console.log(obj)
-
-
+      content: taskContent,
+      state: taskStatus ? 'complete' : 'incomplete'
+    });
   }
-  console.log(result);
-  return result;
 
+  return result;
 }
+
+addActionClearCompletedTasks();
+addActionNewTaskButton();
+updateTaskCount(); // set the initial count as 0
