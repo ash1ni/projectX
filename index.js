@@ -4,6 +4,7 @@ var ADD_TASK_BUTTON = document.getElementById("add-task-btn");
 var INPUT_FIELD = document.querySelector("#new-task-form input");
 var TASK_COUNT_ELEMENT = document.querySelector(".task-count");
 var CLEAR_LIST_BTN = document.getElementById("clear-data");
+var SERVER_URL = 'http://localhost:9999/request';
 var EMPTY_STRING = '';
 
 function addActionNewTaskButton() {
@@ -130,26 +131,18 @@ function addActionMarkTaskAsCompleted(ev) {
 }
 
 function api() {
-  const payload = returnAllTasks()
-  console.log(payload)
-  console.log(JSON.stringify(payload));
-
-  const options = {
+  let payload = returnAllTasksWithState()
+  let requestParams = {
     method: 'POST',
     mode: 'cors',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
+    body: JSON.stringify(payload)
   };
-  fetch('http://localhost:3000/request', options)
 
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      // handle the data (e.g. display the tasks in the UI)
-    })
+  fetch(SERVER_URL, requestParams)
+    .then(raw => raw.json())
+    .then(response => console.log(response))
     .catch(error => console.error(error));
-
-
 }
 
 function returnAllTasksWithState() {
