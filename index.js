@@ -105,7 +105,15 @@ function addActionClearCompletedTasks() {
 }
 
 function updateTaskCount() {
-  TASK_COUNT_ELEMENT.textContent = `${TASKS_COUNT} tasks remaining`;
+  if (TASKS_COUNT === 0) {
+    TASK_COUNT_ELEMENT.textContent = 'Yay! No more work remaining'
+
+  } else if (TASKS_COUNT === 1) {
+    TASK_COUNT_ELEMENT.textContent = `${TASKS_COUNT} task remains! Come on!`;
+
+  } else {
+    TASK_COUNT_ELEMENT.textContent = `${TASKS_COUNT} tasks remaining. Keep at it!`;
+  }
 }
 
 function addActionMarkTaskAsCompleted(ev) {
