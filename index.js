@@ -142,7 +142,7 @@ function sendLocalStateToBackend() {
 
   fetch(SERVER_URL, requestParams)
     .then(raw => raw.json())
-    .then(response => console.log(response))
+    .then(response => console.log(response["success"]))
     .catch(error => console.error(error));
 }
 
